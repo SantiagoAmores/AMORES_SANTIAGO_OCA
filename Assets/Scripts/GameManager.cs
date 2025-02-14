@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator AnimacionDado()
     {
-        float duracion = 1.5f;
+        float duracion = 1f;
         float tiempo = 0;
         while (tiempo < duracion)
         {
@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
         if (turnoActual == 1)
         {
             posicionJugador += pasos;
-            if (posicionJugador >= 20)
+            if (posicionJugador > 20)
             {
                 posicionJugador = 20;
                 Debug.Log("¡El jugador ha ganado!");
@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
         else
         {
             posicionIA += pasos;
-            if (posicionIA >= 20)
+            if (posicionIA > 20)
             {
                 posicionIA = 20;
                 Debug.Log("¡La IA ha ganado!");
