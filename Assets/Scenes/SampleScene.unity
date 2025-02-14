@@ -271,7 +271,7 @@ GameObject:
   - component: {fileID: 49912076}
   m_Layer: 0
   m_Name: casilla15
-  m_TagString: Untagged
+  m_TagString: casilla
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -650,7 +650,7 @@ GameObject:
   - component: {fileID: 171600047}
   m_Layer: 0
   m_Name: casilla12
-  m_TagString: Untagged
+  m_TagString: casilla
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -757,7 +757,7 @@ GameObject:
   - component: {fileID: 186565210}
   m_Layer: 0
   m_Name: casilla5
-  m_TagString: Untagged
+  m_TagString: casilla
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -864,7 +864,7 @@ GameObject:
   - component: {fileID: 293030612}
   m_Layer: 0
   m_Name: casilla19
-  m_TagString: Untagged
+  m_TagString: casilla
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -971,7 +971,7 @@ GameObject:
   - component: {fileID: 370996872}
   m_Layer: 0
   m_Name: casilla21
-  m_TagString: Untagged
+  m_TagString: casilla
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1146,7 +1146,7 @@ GameObject:
   - component: {fileID: 488636512}
   m_Layer: 0
   m_Name: casilla4
-  m_TagString: Untagged
+  m_TagString: casilla
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1253,7 +1253,7 @@ GameObject:
   - component: {fileID: 592554037}
   m_Layer: 0
   m_Name: casilla0
-  m_TagString: Untagged
+  m_TagString: casilla
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1422,7 +1422,7 @@ GameObject:
   - component: {fileID: 695428910}
   m_Layer: 0
   m_Name: casilla16
-  m_TagString: Untagged
+  m_TagString: casilla
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1623,7 +1623,7 @@ GameObject:
   - component: {fileID: 719093438}
   m_Layer: 0
   m_Name: casilla18
-  m_TagString: Untagged
+  m_TagString: casilla
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1749,6 +1749,11 @@ Transform:
   - {fileID: 2058035117}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &826202004 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 34aaebf138efdb04988ac62c1ea182d5, type: 3}
+  m_PrefabInstance: {fileID: 2058035116}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &838456168
 GameObject:
   m_ObjectHideFlags: 0
@@ -1897,7 +1902,7 @@ GameObject:
   - component: {fileID: 887676312}
   m_Layer: 0
   m_Name: casilla20
-  m_TagString: Untagged
+  m_TagString: casilla
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2004,7 +2009,7 @@ GameObject:
   - component: {fileID: 913574816}
   m_Layer: 0
   m_Name: casilla8
-  m_TagString: Untagged
+  m_TagString: casilla
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2111,7 +2116,7 @@ GameObject:
   - component: {fileID: 952251040}
   m_Layer: 0
   m_Name: casilla13
-  m_TagString: Untagged
+  m_TagString: casilla
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2363,7 +2368,7 @@ GameObject:
   - component: {fileID: 1055817026}
   m_Layer: 0
   m_Name: casilla1
-  m_TagString: Untagged
+  m_TagString: casilla
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2470,7 +2475,7 @@ GameObject:
   - component: {fileID: 1134525291}
   m_Layer: 0
   m_Name: casilla2
-  m_TagString: Untagged
+  m_TagString: casilla
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2577,7 +2582,7 @@ GameObject:
   - component: {fileID: 1139510868}
   m_Layer: 0
   m_Name: casilla3
-  m_TagString: Untagged
+  m_TagString: casilla
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2684,7 +2689,7 @@ GameObject:
   - component: {fileID: 1145409835}
   m_Layer: 0
   m_Name: casilla11
-  m_TagString: Untagged
+  m_TagString: casilla
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2791,7 +2796,7 @@ GameObject:
   - component: {fileID: 1177417042}
   m_Layer: 0
   m_Name: casilla10
-  m_TagString: Untagged
+  m_TagString: casilla
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2898,7 +2903,7 @@ GameObject:
   - component: {fileID: 1259945593}
   m_Layer: 0
   m_Name: casilla14
-  m_TagString: Untagged
+  m_TagString: casilla
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3122,7 +3127,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1332339239}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3132,7 +3137,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 100.5, y: -80.6}
+  m_AnchoredPosition: {x: -170, y: -179.1}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1332339241
@@ -3178,7 +3183,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1332339242}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2012249990}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: TirarDado
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1332339242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3351,6 +3368,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1360339522}
   m_CullTransparentMesh: 1
+--- !u!1 &1456851445 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f141817e19a6f7647b532a28def763f1, type: 3}
+  m_PrefabInstance: {fileID: 677489506}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1484201839
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3434,7 +3456,7 @@ GameObject:
   - component: {fileID: 1535448489}
   m_Layer: 0
   m_Name: casilla17
-  m_TagString: Untagged
+  m_TagString: casilla
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3541,7 +3563,7 @@ GameObject:
   - component: {fileID: 1590692002}
   m_Layer: 0
   m_Name: casilla7
-  m_TagString: Untagged
+  m_TagString: casilla
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3648,7 +3670,7 @@ GameObject:
   - component: {fileID: 1876064715}
   m_Layer: 0
   m_Name: casilla9
-  m_TagString: Untagged
+  m_TagString: casilla
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3741,6 +3763,57 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1876064713}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2012249989
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2012249991}
+  - component: {fileID: 2012249990}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2012249990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2012249989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b72bedadbf6d07848be3a9c6a14cf44c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vectorCasillas: 
+  infoCasillas: 
+  fichaJugador: {fileID: 826202004}
+  fichaIA: {fileID: 1456851445}
+  rondaText: {fileID: 10485830}
+  jugadorActivoText: {fileID: 838456170}
+  resultadoDadoText: {fileID: 1360339524}
+--- !u!4 &2012249991
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2012249989}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 188.5, y: 105.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2013192543
 GameObject:
   m_ObjectHideFlags: 0
@@ -3755,7 +3828,7 @@ GameObject:
   - component: {fileID: 2013192545}
   m_Layer: 0
   m_Name: casilla6
-  m_TagString: Untagged
+  m_TagString: casilla
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3921,3 +3994,4 @@ SceneRoots:
   - {fileID: 1285160113}
   - {fileID: 463061811}
   - {fileID: 1484201839}
+  - {fileID: 2012249991}
