@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+
 public class GameManager : MonoBehaviour
 {
     public int[] vectorCasillas;
@@ -16,6 +17,8 @@ public class GameManager : MonoBehaviour
     int ronda = 1;
     int posicionJugador = 0;
     int posicionIA = 0;
+    public GameObject[] casillas; // Array de todas las casillas
+    public List<int> tipoCasillas; // Lista que almacena los tipos de las casillas
 
     private void Awake()
     {
@@ -34,32 +37,76 @@ public class GameManager : MonoBehaviour
             infoCasillas[i] = 0;
         }
 
-        infoCasillas[1] = 1; // Teleport a 7
-        infoCasillas[6] = 1; // Teleport a 13
-        infoCasillas[12] = 2; // Volver a tirar
-        infoCasillas[18] = 2; // Volver a tirar
-        infoCasillas[5] = -1; // Retrocede 3
-        infoCasillas[10] = -1;
-        infoCasillas[14] = -1;
-        infoCasillas[19] = -1;
-        infoCasillas[20] = 99; // Victoria
+        // Asignamos las reglas específicas para ciertas casillas
+        AsignarTiposCasillas();
+        // Cambiamos el color de las casillas según el tipo
+        CambiarColoresCasillas();
+    }
 
-        // RELLENAMOS EL VECTOR DE GAMEOBJECTS
-        vectorObjetos = new GameObject[21];
-        for (int i = 0; i < vectorObjetos.Length; i++)
-        {
-            vectorObjetos[i] = GameObject.Find("casilla" + i);
-        }
+    // Asignar el tipo de casilla según su número
+    void AsignarTiposCasillas()
+    {
+        tipoCasillas = new List<int>();
 
-        // ORDENAMOS EL VECTOR DE GAMEOBJECTS POR NUMERO DE CASILLA
-        GameObject[] vectorGOCasillas = GameObject.FindGameObjectsWithTag("casilla");
-        for (int i = 0; i < vectorGOCasillas.Length; i++)
+        for (int i = 0; i < casillas.Length; i++)
         {
-            GameObject casilla = vectorGOCasillas[i];
-            Casilla casillaScript = casilla.GetComponent<Casilla>();
-            if (casillaScript != null)
+            // Asignación de tipos según el número de la casilla (índice en la lista)
+            if (i == 1 || i == 6) // Casillas de teleport
             {
-                vectorObjetos[casillaScript.numeroCasilla] = casilla;
+                tipoCasillas.Add(1);
+            }
+            else if (i == 12 || i == 18) // Casillas de "volver a tirar"
+            {
+                tipoCasillas.Add(2);
+            }
+            else if (i == 5 || i == 10 || i == 14 || i == 19) // Casillas de retroceder
+            {
+                tipoCasillas.Add(-1);
+            }
+            else if (i == 20) // Casilla de victoria
+            {
+                tipoCasillas.Add(99);
+            }
+            else // Casillas normales
+            {
+                tipoCasillas.Add(0);
+            }
+        }
+    }
+
+    // Cambiar el color de las casillas según su tipo
+    void CambiarColoresCasillas()
+    {
+        for (int i = 0; i < casillas.Length; i++)
+        {
+            Renderer casillaRenderer = casillas[i].GetComponent<Renderer>();
+
+            if (casillaRenderer == null)
+            {
+                Debug.LogError("No se encontró un Renderer en la casilla: " + casillas[i].name);
+                continue; // Si no tiene Renderer, se pasa a la siguiente
+            }
+
+            // Cambiar el color de la casilla según el tipo
+            if (tipoCasillas[i] == 1) // Teleport
+            {
+                casillaRenderer.material.color = Color.blue;
+            }
+            else if (tipoCasillas[i] == 2) // Volver a tirar
+            {
+                casillaRenderer.material.color = Color.green;
+            }
+            else if (tipoCasillas[i] == -1) // Retroceder
+            {
+                casillaRenderer.material.color = Color.red;
+            }
+            else if (tipoCasillas[i] == 99) // Victoria
+            {
+                casillaRenderer.material.color = Color.yellow;
+            }
+            else // Normal
+            {
+                casillaRenderer.material.color = Color.white;
             }
         }
     }
@@ -75,12 +122,12 @@ public class GameManager : MonoBehaviour
         float tiempo = 0;
         while (tiempo < duracion)
         {
-            resultadoDadoText.text = "Dado: " + Random.Range(1, 7);
+            resultadoDadoText.text = Random.Range(1, 7).ToString();
             tiempo += Time.deltaTime;
             yield return null;
         }
         int resultadoDado = Random.Range(1, 7);
-        resultadoDadoText.text = "Dado: " + resultadoDado;
+        resultadoDadoText.text = resultadoDado.ToString();
         Debug.Log("Dado: " + resultadoDado);
         MoverFicha(resultadoDado);
     }

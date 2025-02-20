@@ -9,20 +9,12 @@ public class Casilla : MonoBehaviour
 
     private void Awake()
     {
-        string nombre = gameObject.name;
-        if (nombre.StartsWith("casilla"))
-        {
-            string numeroStr = nombre.Substring(7);
-            int numero;
-            if (int.TryParse(numeroStr, out numero))
-            {
-                numeroCasilla = numero;
-            }
-        }
         AsignarTipoCasilla();
+        CambiarColorCasilla();
     }
 
-    private void AsignarTipoCasilla()
+    // Asigna el tipo de casilla según el número de casilla
+    public void AsignarTipoCasilla()
     {
         if (numeroCasilla == 1 || numeroCasilla == 6)
         {
@@ -40,11 +32,39 @@ public class Casilla : MonoBehaviour
         {
             tipoCasilla = 99; // Victoria
         }
-        else
+    }
+
+    // Cambia el color de las casillas hijas según su tipo
+    public void CambiarColorCasilla()
+    {
+        // Recorremos todos los hijos del objeto actual (contendor de casillas)
+        foreach (Transform hijo in transform) // 'transform' es el objeto contenedor que tiene los hijos
         {
-            tipoCasilla = 0; // Normal
+            // Obtenemos el Renderer del hijo (casilla individual)
+            Renderer casillaRenderer = hijo.GetComponent<Renderer>();
+
+
+            // Cambiar el color de la casilla según su tipo
+            if (tipoCasilla == 1) // Teleport
+            {
+                casillaRenderer.material.color = Color.blue;
+            }
+            else if (tipoCasilla == 2) // Volver a tirar
+            {
+                casillaRenderer.material.color = Color.green;
+            }
+            else if (tipoCasilla == -1) // Retroceder
+            {
+                casillaRenderer.material.color = Color.red;
+            }
+            else if (tipoCasilla == 99) // Victoria
+            {
+                casillaRenderer.material.color = Color.yellow;
+            }
+            else // Normal
+            {
+                casillaRenderer.material.color = Color.white;
+            }
         }
     }
 }
-
-
