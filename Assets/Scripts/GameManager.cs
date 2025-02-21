@@ -2,23 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class GameManager : MonoBehaviour
 {
     public int[] vectorCasillas;
     public int[] infoCasillas;
+
     GameObject[] vectorObjetos;
     public GameObject fichaJugador;
     public GameObject fichaIA;
+
     public TextMeshProUGUI rondaText;
     public TextMeshProUGUI jugadorActivoText;
     public TextMeshProUGUI resultadoDadoText;
+
+    public GameObject resultadoCanvas;
+    public TextMeshProUGUI textoVictoria;
+    public GameObject botonReinicio;
+
     int turnoActual = 1;
     int ronda = 1;
-    int posicionJugador = 0;
-    int posicionIA = 0;
-    public GameObject[] casillas; // Array de todas las casillas
-    public List<int> tipoCasillas; // Lista que almacena los tipos de las casillas
+    int posicionJugador = -1;
+    int posicionIA = -1;
 
     private void Awake()
     {
@@ -31,84 +38,32 @@ public class GameManager : MonoBehaviour
             vectorCasillas[i] = 0;
         }
 
-        // RELLENAMOS EL VECTOR DE INFO CASILLAS SEGÚN EL PDF
+        // RELLENAMOS EL VECTOR DE INFO CASILLAS
         for (int i = 0; i < infoCasillas.Length; i++)
         {
             infoCasillas[i] = 0;
         }
 
-        // Asignamos las reglas específicas para ciertas casillas
-        AsignarTiposCasillas();
-        // Cambiamos el color de las casillas según el tipo
-        CambiarColoresCasillas();
-    }
+        infoCasillas[1] = 1; // Teleport a 7
+        infoCasillas[6] = 1; // Teleport a 12
+        infoCasillas[13] = 2; // Volver a tirar
+        infoCasillas[18] = 2; // Volver a tirar
+        infoCasillas[5] = -1; // Retrocede 3
+        infoCasillas[10] = -1; // Retrocede 3
+        infoCasillas[14] = -1; // Retrocede 3
+        infoCasillas[19] = -1; // Retrocede 3
+        infoCasillas[20] = 99; // Victoria
 
-    // Asignar el tipo de casilla según su número
-    void AsignarTiposCasillas()
-    {
-        tipoCasillas = new List<int>();
-
-        for (int i = 0; i < casillas.Length; i++)
+        // RELLENAMOS EL VECTOR DE GAMEOBJECTS
+        vectorObjetos = new GameObject[21];
+        for (int i = 0; i < vectorObjetos.Length; i++)
         {
-            // Asignación de tipos según el número de la casilla (índice en la lista)
-            if (i == 1 || i == 6) // Casillas de teleport
-            {
-                tipoCasillas.Add(1);
-            }
-            else if (i == 12 || i == 18) // Casillas de "volver a tirar"
-            {
-                tipoCasillas.Add(2);
-            }
-            else if (i == 5 || i == 10 || i == 14 || i == 19) // Casillas de retroceder
-            {
-                tipoCasillas.Add(-1);
-            }
-            else if (i == 20) // Casilla de victoria
-            {
-                tipoCasillas.Add(99);
-            }
-            else // Casillas normales
-            {
-                tipoCasillas.Add(0);
-            }
+            vectorObjetos[i] = GameObject.Find("casilla" + i);
         }
-    }
 
-    // Cambiar el color de las casillas según su tipo
-    void CambiarColoresCasillas()
-    {
-        for (int i = 0; i < casillas.Length; i++)
-        {
-            Renderer casillaRenderer = casillas[i].GetComponent<Renderer>();
+        CambiarColorCasilla(); // Actualizar los colores de las casillas
 
-            if (casillaRenderer == null)
-            {
-                Debug.LogError("No se encontró un Renderer en la casilla: " + casillas[i].name);
-                continue; // Si no tiene Renderer, se pasa a la siguiente
-            }
-
-            // Cambiar el color de la casilla según el tipo
-            if (tipoCasillas[i] == 1) // Teleport
-            {
-                casillaRenderer.material.color = Color.blue;
-            }
-            else if (tipoCasillas[i] == 2) // Volver a tirar
-            {
-                casillaRenderer.material.color = Color.green;
-            }
-            else if (tipoCasillas[i] == -1) // Retroceder
-            {
-                casillaRenderer.material.color = Color.red;
-            }
-            else if (tipoCasillas[i] == 99) // Victoria
-            {
-                casillaRenderer.material.color = Color.yellow;
-            }
-            else // Normal
-            {
-                casillaRenderer.material.color = Color.white;
-            }
-        }
+        resultadoCanvas.SetActive(false);
     }
 
     public void TirarDado()
@@ -126,7 +81,7 @@ public class GameManager : MonoBehaviour
             tiempo += Time.deltaTime;
             yield return null;
         }
-        int resultadoDado = Random.Range(1, 7);
+        int resultadoDado = 1;// Random.Range(1, 7);
         resultadoDadoText.text = resultadoDado.ToString();
         Debug.Log("Dado: " + resultadoDado);
         MoverFicha(resultadoDado);
@@ -134,48 +89,101 @@ public class GameManager : MonoBehaviour
 
     void MoverFicha(int pasos)
     {
-        if (turnoActual == 1)
+        int nuevaPosicion;
+
+        if (turnoActual == 1) // Turno del jugador
         {
-            posicionJugador += pasos;
-            if (posicionJugador > 20)
+            nuevaPosicion = posicionJugador + pasos;
+            nuevaPosicion = Mathf.Clamp(nuevaPosicion, 0, 20); // Limita la posición entre 0 y 20
+
+            // Si la IA ya está en esa posición, recalculamos una nueva posición
+            if (nuevaPosicion == posicionIA)
             {
-                posicionJugador = 20;
-                Debug.Log("¡El jugador ha ganado!");
+                nuevaPosicion = AjustarPosicion(nuevaPosicion);
             }
+
+            posicionJugador = nuevaPosicion;
             AplicarReglas(ref posicionJugador);
             fichaJugador.transform.position = vectorObjetos[posicionJugador].transform.position;
         }
-        else
+        else // Turno de la IA
         {
-            posicionIA += pasos;
-            if (posicionIA > 20)
+            nuevaPosicion = posicionIA + pasos;
+            nuevaPosicion = Mathf.Clamp(nuevaPosicion, 0, 20); // Limita la posición entre 0 y 20
+
+            // Si el jugador ya está en esa posición, recalculamos una nueva posición
+            if (nuevaPosicion == posicionJugador)
             {
-                posicionIA = 20;
-                Debug.Log("¡La IA ha ganado!");
+                nuevaPosicion = AjustarPosicion(nuevaPosicion);
             }
+
+            posicionIA = nuevaPosicion;
             AplicarReglas(ref posicionIA);
             fichaIA.transform.position = vectorObjetos[posicionIA].transform.position;
         }
+
         CambiarTurno();
+    }
+
+    int AjustarPosicion(int posicionActual)
+    {
+        int nuevaPosicion;
+        if (posicionActual == 20) return 19; // Si ya está en la meta, no hay opción de moverse
+
+        if (posicionActual == 0) return 1; // Si está en la primera casilla, solo puede avanzar
+
+        // Decidimos aleatoriamente si avanzamos o retrocedemos
+        if (Random.value < 0.5f)
+        {
+            nuevaPosicion = posicionActual + 1; // Avanza
+        }
+        else
+        {
+            nuevaPosicion = posicionActual - 1; // Retrocede
+        }
+
+        nuevaPosicion = Mathf.Clamp(nuevaPosicion, 0, 20); // Limita la posición entre 0 y 20
+        Debug.Log($"Casilla ocupada. Moviendo a {nuevaPosicion}");
+        return nuevaPosicion;
     }
 
     void AplicarReglas(ref int posicion)
     {
-        if (infoCasillas[posicion] == 1)
+        if (posicion >= 0 && posicion < infoCasillas.Length) // Asegura que la posición esté dentro del rango válido
         {
-            Debug.Log("Teleport activado");
-            posicion += 6;
+            if (infoCasillas[posicion] == 1)
+            {
+                Debug.Log("Teleport activado");
+                posicion += 6;
+                posicion = Mathf.Clamp(posicion, 0, 20); // Limita la posición entre 0 y 20
+            }
+            else if (infoCasillas[posicion] == -1)
+            {
+                Debug.Log("Retroceso activado");
+                posicion -= 3;
+                if (posicion < 0) posicion = 0;
+            }
+            else if (infoCasillas[posicion] == 2)
+            {
+                Debug.Log("Vuelves a tirar");
+                TirarDado();
+            }
+
+            else if (infoCasillas[posicion] == 99)
+            {
+                if (turnoActual == 1) // Si es el turno del jugador
+                {
+                    MostrarVictoria("¡Jugador ha ganado!");
+                }
+                else // Si es el turno de la IA
+                {
+                    MostrarVictoria("¡IA ha ganado!");
+                }
+            }
         }
-        else if (infoCasillas[posicion] == -1)
+        else
         {
-            Debug.Log("Retroceso activado");
-            posicion -= 3;
-            if (posicion < 0) posicion = 0;
-        }
-        else if (infoCasillas[posicion] == 2)
-        {
-            Debug.Log("Vuelves a tirar");
-            TirarDado();
+            Debug.LogError("Posición fuera de los límites del array infoCasillas: " + posicion);
         }
     }
 
@@ -184,6 +192,7 @@ public class GameManager : MonoBehaviour
         if (turnoActual == 1)
         {
             turnoActual = 2;
+            StartCoroutine(TirarDadoIA()); // La IA tira automáticamente después de 1 segundo
         }
         else
         {
@@ -191,6 +200,12 @@ public class GameManager : MonoBehaviour
             ronda++;
         }
         ActualizarCanvas();
+    }
+
+    private IEnumerator TirarDadoIA()
+    {
+        yield return new WaitForSeconds(1f); // Espera 1seg antes de tirar
+        TirarDado();
     }
 
     void ActualizarCanvas()
@@ -204,5 +219,47 @@ public class GameManager : MonoBehaviour
         {
             jugadorActivoText.text = "Turno de: IA";
         }
+    }
+
+    // RELLENAMOS EL VECTOR DE CASILLAS
+    public void CambiarColorCasilla()
+    {
+        for (int i = 0; i < vectorCasillas.Length; i++)
+        {
+            if (infoCasillas[i] == 1)
+            {
+                vectorObjetos[i].GetComponent<Renderer>().material.color = Color.green;
+            }
+            else if (infoCasillas[i] == 3)
+            {
+                vectorObjetos[i].GetComponent<Renderer>().material.color = Color.blue;
+            }
+            else if (infoCasillas[i] == 2)
+            {
+                vectorObjetos[i].GetComponent<Renderer>().material.color = Color.white;
+            }
+            else if (infoCasillas[i] == -1)
+            {
+                vectorObjetos[i].GetComponent<Renderer>().material.color = Color.red;
+            }
+            else if (infoCasillas[i] == 99)
+            {
+                vectorObjetos[i].GetComponent<Renderer>().material.color = Color.yellow;
+            }
+        }
+    }
+
+    public void MostrarVictoria(string mensaje)
+    {
+        resultadoCanvas.SetActive(true); // Activamos el canvas de victoria
+        textoVictoria.text = mensaje; // Mostramos el mensaje de victoria
+
+        // Deshabilitar el botón de reinicio hasta que el jugador haga clic en él
+        botonReinicio.SetActive(true);
+    }
+
+    public void ReiniciarJuego()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Recarga la escena actual
     }
 }
