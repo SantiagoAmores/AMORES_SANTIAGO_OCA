@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
 
     public void TirarDado()
     {
+        //Animación para simular una tirada de dados haciendo que salgan numeros aleatorios
         StartCoroutine(AnimacionDado());
     }
 
@@ -81,7 +82,8 @@ public class GameManager : MonoBehaviour
             tiempo += Time.deltaTime;
             yield return null;
         }
-        int resultadoDado = 1;// Random.Range(1, 7);
+        //Sacamos un número del 1 al 6 y el resultado es el número de posiciones que se mueve la ficha
+        int resultadoDado = Random.Range(1, 7);
         resultadoDadoText.text = resultadoDado.ToString();
         Debug.Log("Dado: " + resultadoDado);
         MoverFicha(resultadoDado);
@@ -166,9 +168,11 @@ public class GameManager : MonoBehaviour
             else if (infoCasillas[posicion] == 2)
             {
                 Debug.Log("Vuelves a tirar");
-                TirarDado();
+                int resultadoDadoExtra = Random.Range(1, 7); // Genera una nueva tirada
+                resultadoDadoText.text = resultadoDadoExtra.ToString();
+                Debug.Log("Dado extra: " + resultadoDadoExtra);
+                MoverFicha(resultadoDadoExtra); // Mueve la misma ficha sin cambiar de turno
             }
-
             else if (infoCasillas[posicion] == 99)
             {
                 if (turnoActual == 1) // Si es el turno del jugador
